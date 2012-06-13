@@ -8,11 +8,33 @@
         <title>C.F."Os Barulhentos" - Sócios</title>
     </h:head>
     <h:body>
-   <h3>Página de Entrada</h3>  
+   <h3>Sócios</h3>  
         
     <p:separator id="separator"/> 
     <h:form>
-    <p:commandButton  value="Entrar" action="#{partnerManager.load}"/>
+    
+        <p:carousel value="#{partnerManager.partners}" var="partner" headerText="Sócios" rows="1" itemStyle="height:200px;width:200px;" effect="easeInStrong">  
+                        <p:tab> 
+                            <h:form>
+                            
+                                <h:panelGrid columns="1" cellpadding="10" style="alignment-adjust: central">
+                                <p:row>
+                                <h:outputText  id ="id" value="#{partner.id}" style="text-align: left"/>
+                                </p:row>
+                                <p:row>
+                                <img src="#{partner.picture}" style="text-align: center" height="100"/>  
+                                </p:row>
+                                <p:row>
+                                <h:outputText id="text" value="#{partner.name}" />  
+                                </p:row>
+                            </h:panelGrid>  
+                            
+                            </h:form>
+                        </p:tab>
+     </p:carousel>  
+         
+        
+        
     </h:form>
     </h:body>
 </html>
