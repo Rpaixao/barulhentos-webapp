@@ -3,39 +3,69 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
         <title>C.F."Os Barulhentos" - Sócios</title>
     </h:head>
     <h:body>
-   <h3>Sócios</h3>  
-        
-    <p:separator id="separator"/> 
-    <h:form>
+        <ui:composition template="./resources/templates/indexTemplate.xhtml">
+   <h3>Sócios</h3>
+
+   
+   
+   <ui:define name="content">
+ 
+   <h:form>
+   
+   
     
-        <p:carousel value="#{partnerManager.partners}" var="partner" headerText="Sócios" rows="1" itemStyle="height:200px;width:200px;" effect="easeInStrong">  
-                        <p:tab> 
-                            <h:form>
-                            
-                                <h:panelGrid columns="1" cellpadding="10" style="alignment-adjust: central">
-                                <p:row>
-                                <h:outputText  id ="id" value="#{partner.id}" style="text-align: left"/>
-                                </p:row>
-                                <p:row>
-                                <img src="#{partner.picture}" style="text-align: center" height="100"/>  
-                                </p:row>
-                                <p:row>
-                                <h:outputText id="text" value="#{partner.name}" />  
-                                </p:row>
-                            </h:panelGrid>  
-                            
-                            </h:form>
-                        </p:tab>
-     </p:carousel>  
+   <p:dataGrid var="partner" value="#{partnerManager.partners}" columns="3"  
+        rows="3" paginator="true"  
+        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+        rowsPerPageTemplate="3,6,9,12" >  
+          
+        <p:column>  
+            <p:panel header="#{partner.id}" style="text-align:center">  
+                <h:panelGrid columns="1" style="width:100%">  
+                    <p:graphicImage value="#{partner.picture}" width="100"/>   
+                  
+                    <h:outputText value="#{partner.name}" />  
+                                         
+                    <p:commandLink  oncomplete="partnerDialog.show()" title="View Detail">  
+                        <p:graphicImage value="http://www.aetv.com/hoarders/images/digital-room/info_icon.png"/>   
+                        <f:setPropertyActionListener value="#{partner}"   
+                                                     target="#{partnerManager.selectedPartner}" />  
+                    </p:commandLink> 
+                </h:panelGrid>  
+            </p:panel>  
+        </p:column> 
+
+    </p:dataGrid>
+   
          
-        
+       
+       <p:dialog header="Partner Detail" widgetVar="partnerDialog" modal="true">
+           <h:outputText value="#{partnerManager.selectedPartner.name}"/>
+       </p:dialog>
+       <br/>
+       <br/>
+       
+       <!--<p:carousel id="smallCarousel" value="#{partnerManager.partners}" var="partner"   
+        rows="3"  itemStyleClass="carItem" itemStyle="height:200px;width:150px;">     
+        <h:panelGrid columns="1" style="width:100%" cellpadding="5" >  
+        <p:panel header="#{partner.id}" style="text-align:center"> 
+        <h:outputText value="#{partner.id}" />
+        <p:graphicImage value="#{partner.picture}" width="100"/>
+        <h:outputText value="#{partner.name}" />
+        </p:panel>
+        </h:panelGrid>  
+        </p:carousel>-->
+           
         
     </h:form>
+   </ui:define>
+        </ui:composition>
     </h:body>
 </html>
 

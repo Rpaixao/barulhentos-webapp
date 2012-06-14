@@ -21,7 +21,8 @@ import services.ServiceManager;
 public class partnerManager implements Serializable{
     
     LinkedList<Partner> partners ;
-
+    Partner selectedPartner;
+    
     public LinkedList<Partner> getPartners() {
         return partners;
     }
@@ -52,5 +53,15 @@ public class partnerManager implements Serializable{
     public String load(){
         return "success";
     }
+    
+    public Partner getSelectedPartner() {
+        System.out.println("Retornado o Partner "+selectedPartner);
+        return selectedPartner;  
+    }  
+  
+    public void setSelectedPartner(Partner selectedPartner) {
+        System.out.println("Seleccionado o Partner " + selectedPartner.getName());
+        this.selectedPartner = selectedPartner;  
+    }  
 
 }
